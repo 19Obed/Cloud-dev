@@ -75,32 +75,3 @@ resource "aws_security_group" "CC_infra_lb_sec_group" {
 
   vpc_id = aws_vpc.CC_infra.id
 }
-
-#Creating security group for the Database 
-
-resource "aws_security_group" "CC_DB_security_group" {
-  name        = "CC_DB_security_group"
-  description = "Enable MYSQL access on port 3306"
-  vpc_id      = aws_vpc.CC_infra.id
-
-  ingress {
-    description = "MYSQL Access"
-    from_port   = 3306
-    to_port     = 3306
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-
-  }
-
-  egress {
-    from_port        = 0
-    to_port          = 0
-    protocol         = "-1"
-    cidr_blocks      = ["0.0.0.0/0"]
-    ipv6_cidr_blocks = ["::/0"]
-  }
-
-  tags = {
-    Name = "CC_DB_security_group"
-  }
-}
